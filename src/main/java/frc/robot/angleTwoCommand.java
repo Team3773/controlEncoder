@@ -9,22 +9,22 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 
 
-public class angleOneCommand extends CommandBase {
+public class angleTwoCommand extends CommandBase {
   public SpeedController m_motor;
   public Encoder m_encoder;
   public double angle = m_encoder.getDistance();
 
-  public angleOneCommand() {
+  public angleTwoCommand() {
   }
   
   @Override
   public void execute() {
-    if (angle != 4.35833) {
+    if (angle != 5.449541) {
       m_motor.set(0.1);
     }
-    if(angle == 4.35833) {
+    if(angle == 5.449541) {
       m_motor.set(0);
-    }  
+    } 
   }
 
   // Called once the command ends or is interrupted.
