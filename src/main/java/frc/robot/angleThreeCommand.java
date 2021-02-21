@@ -24,6 +24,7 @@ public class angleThreeCommand extends CommandBase {
     } 
     if(angle == 6.53945) {
       m_motor.set(0);
+      m_encoder.reset();
     } 
   }
 

@@ -24,6 +24,7 @@ public class angleOneCommand extends CommandBase {
     }
     if(angle == 4.35833) {
       m_motor.set(0);
+      m_encoder.reset();
     }  
   }
 
