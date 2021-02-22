@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -19,13 +20,16 @@ public class Robot extends TimedRobot {
   private static final int kJoystickPort = 3;
   private static final int kEncoderPortA = 1;
   private static final int kEncoderPortB = 2;
-  private Joystick m_joystick;
   public SpeedController m_motor;
-  public Encoder m_encoder;
+  private Joystick m_joystick;
+  private Encoder m_encoder = new Encoder(1, 2, false, EncodingType.k4X);
   private Button button2;
           Button button3;
           Button button4;
 
+  final double kP = 0.5;
+  double setpoint = 0;
+  private final double kAngleTick = Math.PI * 2.75 / 360.0;
 
   @Override
   public void robotInit() {
@@ -43,19 +47,38 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+  
+    double sensorPosition = m_encoder.get() * kAngleTick;
+    double error = setpoint - sensorPosition;
+    double outputSpeed = kP * error;
     
     SmartDashboard.putNumber("Encoder", m_encoder.getDistance());
 
     System.out.print(m_encoder.getDistance());
 
-    button2.whenPressed(new angleOneCommand());
-    button2.whenPressed(new angleTwoCommand());
-    button3.whenPressed(new angleThreeCommand());
+    //button2.whenPressed(new angleOneCommand());
+    //button2.whenPressed(new angleTwoCommand());
+    //button3.whenPressed(new angleThreeCommand());
+
+    if (m_joystick.getRawButton(2)) {
+      setpoint = 4.35833;
+    }
+
+    if(m_joystick.getRawButton(3)){
+      setpoint = 5.449541;
+    }
+
+    if(m_joystick.getRawButton(4)){
+      setpoint = 6.53945;
+    }
+
+    m_motor.set(outputSpeed);
+
   }
 
   @Override
   public void teleopPeriodic() {
-   m_motor.set(m_joystick.getThrottle());
+  //m_motor.set(m_joystick.getThrottle());
   }
 }
 
