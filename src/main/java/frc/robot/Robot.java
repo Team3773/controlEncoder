@@ -20,9 +20,9 @@ public class Robot extends TimedRobot {
   private static final int kJoystickPort = 3;
   private static final int kEncoderPortA = 1;
   private static final int kEncoderPortB = 2;
+  private Encoder m_encoder;
   public SpeedController m_motor;
   private Joystick m_joystick;
-  private Encoder m_encoder = new Encoder(1, 2, false, EncodingType.k4X);
   private Button button2;
           Button button3;
           Button button4;
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_motor = new WPI_TalonSRX(kMotorPort);
     m_joystick = new Joystick(kJoystickPort);
-    m_encoder = new Encoder(kEncoderPortA, kEncoderPortB);
+    m_encoder = new Encoder(kEncoderPortA, kEncoderPortB, false, EncodingType.k4X);
     button2 = new JoystickButton(m_joystick, 2);
     button3 = new JoystickButton(m_joystick, 3);
     button4 = new JoystickButton(m_joystick, 4);

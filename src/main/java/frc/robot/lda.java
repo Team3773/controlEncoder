@@ -5,33 +5,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedController;
 
-
-public class angleOneCommand extends CommandBase {
-  public SpeedController m_motor;
-  public Encoder m_encoder;
-  public double angle = m_encoder.getDistance();
-
-  public angleOneCommand() {
+public class lda extends CommandBase {
+  /** Creates a new lda. */
+  public lda() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  public void initialize() {
-    
-  }
-  
+  // Called when the command is initially scheduled.
   @Override
-  public void execute() {
-    
-    if (angle != 4.35833) {
-      m_motor.set(0.1);
-    }
-    if(angle == 4.35833) {
-      m_motor.set(0);
-      m_encoder.reset();
-    }  
-  }
+  public void initialize() {}
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
