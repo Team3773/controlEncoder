@@ -44,7 +44,6 @@ public class Robot extends TimedRobot {
     button4 = new JoystickButton(m_joystick, 4);
     forwardLimitSwitch = new DigitalInput(9);
 
-
     m_encoder.setDistancePerPulse((Math.PI * 2.75) / 360.0);
     m_encoder.reset();
   }
@@ -63,6 +62,9 @@ public class Robot extends TimedRobot {
     //button2.whenPressed(new angleOneCommand());
     //button2.whenPressed(new angleTwoCommand());
     //button3.whenPressed(new angleThreeCommand());
+    if (m_joystick.getRawButton(5)) {
+      outputSpeed = 1;
+    }
 
     if (forwardLimitSwitch.get()){
       setpoint = (0); 
