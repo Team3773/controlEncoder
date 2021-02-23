@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -14,12 +15,14 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 
 public class Robot extends TimedRobot {
   private static final int kMotorPort = 4;
   private static final int kJoystickPort = 3;
   private static final int kEncoderPortA = 1;
   private static final int kEncoderPortB = 2;
+  private DigitalInput forwardLimitSwitch;
   private Encoder m_encoder;
   public SpeedController m_motor;
   private Joystick m_joystick;
@@ -39,11 +42,12 @@ public class Robot extends TimedRobot {
     button2 = new JoystickButton(m_joystick, 2);
     button3 = new JoystickButton(m_joystick, 3);
     button4 = new JoystickButton(m_joystick, 4);
+    forwardLimitSwitch = new DigitalInput(9);
+
 
     m_encoder.setDistancePerPulse((Math.PI * 2.75) / 360.0);
     m_encoder.reset();
   }
-
 
   @Override
   public void robotPeriodic() {
@@ -60,6 +64,11 @@ public class Robot extends TimedRobot {
     //button2.whenPressed(new angleTwoCommand());
     //button3.whenPressed(new angleThreeCommand());
 
+    if (forwardLimitSwitch.get()){
+      setpoint = (0); 
+      
+    } else {
+
     if (m_joystick.getRawButton(2)) {
       setpoint = 4.35833;
     }
@@ -71,10 +80,11 @@ public class Robot extends TimedRobot {
     if(m_joystick.getRawButton(4)){
       setpoint = 6.53945;
     }
-
+  }
     m_motor.set(outputSpeed);
 
   }
+  
 
   @Override
   public void teleopPeriodic() {
